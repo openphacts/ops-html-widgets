@@ -5,63 +5,80 @@ return d||(f=$b[b],$b[b]=e,e=null!=c(a,b,d)?b.toLowerCase():null,$b[b]=f),e}});v
 /***********************/
 /*    Widgets Code     */
 /***********************/
-       var ldaBaseURL = "http://beta.openphacts.org/1.3";
-       var appID = "d46faee5";
-       var appKey = "99689be2999fc97bfe0219d33d964a5e";
-       $(document).ready(function(){
-           var handlebarsURL="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js";
-           var opsJSURL="https://raw.github.com/openphacts/ops.js/master/src/combined.js";
-           $.getScript( handlebarsURL, function( data, textStatus, jqxhr ) {
-               $.getScript( opsJSURL, function( data, textStatus, jqxhr ) {
-                   var moleculeArea = $('molecule-viz')[0];
-                   var value = $(moleculeArea).attr('object');
-                   var cwSearcher = new Openphacts.ConceptWikiSearch(ldaBaseURL, appID, appKey); 
-	               var cwCompoundCallback=function(success, status, response){
-                       if(success && response) {
-                         var results = cwSearcher.parseResponse(response);
-                         $.each(results, function(index, result) {
-                             var found = false;
-                             if ($.isArray(result.prefLabel)) {
-                               $.each(result.prefLabel, function(index, label) {
-                               if (label.toLowerCase() === value.toLowerCase() && found ==false) {
-                               found = true;
-	                           var compoundCallback=function(success, status, response){  
-                                   if (success) {
-	                                 compoundResult = compoundSearcher.parseCompoundResponse(response);
-                                     var imageHTML = '<img width="128" height="128" src="' + compoundResult.csURI+ '/image" title="Molecule image for ' + compoundResult.prefLabel + '">';
-                                     var hbsSource = imageHTML + moleculeArea.innerHTML;
-                                     var template = Handlebars.compile(hbsSource);
-                                     var context = {smiles: compoundResult.smiles};
-                                     var html = template(context);
-                                     $(moleculeArea).replaceWith(html);
-                                   }
-                               }
-                               var compoundSearcher = new Openphacts.CompoundSearch(ldaBaseURL, appID, appKey);
-	                           compoundSearcher.fetchCompound(result.uri, null, compoundCallback);
-                             }
-                               });
-                             } else {
-                             if (result.prefLabel.toLowerCase() === value.toLowerCase()) {
-                               found = true;
-	                           var compoundCallback=function(success, status, response){  
-                                   if (success) {
-	                                 compoundResult = compoundSearcher.parseCompoundResponse(response);
-                                     var imageHTML = '<div><img width="128" height="128" src="' + compoundResult.csURI+ '/image" title="Molecule image for ' + compoundResult.prefLabel + '"></div>';
-                                     var hbsSource = imageHTML + moleculeArea.innerHTML;
-                                     var template = Handlebars.compile(hbsSource);
-                                     var context = {smiles: compoundResult.smiles};
-                                     var html = template(context);
-                                     $(moleculeArea).replaceWith(html);
-                                   }
-                               }
-                               var compoundSearcher = new Openphacts.CompoundSearch(ldaBaseURL, appID, appKey);
-	                           compoundSearcher.fetchCompound(result.uri, null, compoundCallback);
-                             }
-                             }     
-                         });
-                       };
-                   };
-                   cwSearcher.freeText(value, 20, '4', cwCompoundCallback);
-               });
-           });
-       });
+var ldaBaseURL = "http://beta.openphacts.org/1.3";
+var appID = "d46faee5";
+var appKey = "99689be2999fc97bfe0219d33d964a5e";
+$(document).ready(function () {
+    var handlebarsURL = "http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js";
+    var opsJSURL = "https://raw.github.com/openphacts/ops.js/master/src/combined.js";
+    $.getScript(handlebarsURL, function (data, textStatus, jqxhr) {
+        $.getScript(opsJSURL, function (data, textStatus, jqxhr) {
+            var moleculeAreas = $('.molecule-viz');
+            var compoundInfoAreas = $('.compound-info');
+            $.each(moleculeAreas, function (index, moleculeArea) {
+                var value = moleculeArea.getAttribute('data-ops-label');
+                var cwSearcher = new Openphacts.ConceptWikiSearch(ldaBaseURL, appID, appKey);
+                var cwCompoundCallback = function (success, status, response) {
+                    if (success && response) {
+                        var results = cwSearcher.parseResponse(response);
+                        $.each(results, function (index, result) {
+                            var found = false;
+                            if ($.isArray(result.prefLabel)) {
+                                $.each(result.prefLabel, function (index, label) {
+                                    if (label.toLowerCase() === value.toLowerCase() && found == false) {
+                                        found = true;
+                                        var compoundCallback = function (success, status, response) {
+                                            if (success) {
+                                                compoundResult = compoundSearcher.parseCompoundResponse(response);
+                                                var imageHTML = '<img width="128" height="128" src="' + compoundResult.csURI + '/image" title="Molecule image for ' + compoundResult.prefLabel + '">';
+                                                var hbsSource = imageHTML + moleculeArea.innerHTML;
+                                                var template = Handlebars.compile(hbsSource);
+                                                var context = {};
+                                                var html = template(context);
+                                                $(moleculeArea).replaceWith(html);
+                                            }
+                                        }
+                                        var compoundSearcher = new Openphacts.CompoundSearch(ldaBaseURL, appID, appKey);
+                                        compoundSearcher.fetchCompound(result.uri, null, compoundCallback);
+                                    }
+                                });
+                            } else {
+                                if (result.prefLabel.toLowerCase() === value.toLowerCase()) {
+                                    found = true;
+                                    var compoundCallback = function (success, status, response) {
+                                        if (success) {
+                                            compoundResult = compoundSearcher.parseCompoundResponse(response);
+                                            var imageHTML = '<div><img width="128" height="128" src="' + compoundResult.csURI + '/image" title="Molecule image for ' + compoundResult.prefLabel + '"></div>';
+                                            var hbsSource = imageHTML + moleculeArea.innerHTML;
+                                            var template = Handlebars.compile(hbsSource);
+                                            var context = {};
+                                            var html = template(context);
+                                            $(moleculeArea).replaceWith(html);
+                                        }
+                                    }
+                                    var compoundSearcher = new Openphacts.CompoundSearch(ldaBaseURL, appID, appKey);
+                                    compoundSearcher.fetchCompound(result.uri, null, compoundCallback);
+                                }
+                            }
+                        });
+                    };
+                };
+                cwSearcher.freeText(value, 20, '4', cwCompoundCallback);
+            });
+            $.each(compoundInfoAreas, function (index, compoundInfoArea) {
+                var value = compoundInfoArea.getAttribute('data-ops-uri');
+                var compoundSearcher = new Openphacts.CompoundSearch(ldaBaseURL, appID, appKey);
+                var compoundCallback = function (success, status, response) {
+                    if (success) {
+                        compoundResult = compoundSearcher.parseCompoundResponse(response);
+                        var hbsSource = compoundInfoArea.innerHTML;
+                        var template = Handlebars.compile(hbsSource);
+                        var html = template(compoundResult);
+                        $(compoundInfoArea).replaceWith(html);
+                    }
+                }
+                compoundSearcher.fetchCompound(value, null, compoundCallback);
+            });
+        });
+    });
+});
