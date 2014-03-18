@@ -1,9 +1,6 @@
 /***********************/
 /*    Widgets Code     */
 /***********************/
-var ldaBaseURL = "http://beta.openphacts.org/1.3";
-var appID = "d46faee5";
-var appKey = "99689be2999fc97bfe0219d33d964a5e";
 $(document).ready(function () {
     var handlebarsURL = "http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js";
     var opsJSURL = "https://raw.github.com/openphacts/ops.js/master/src/combined.js";

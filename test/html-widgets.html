@@ -4,11 +4,16 @@
 <head>
     <title>Widgets Test</title>
     <script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <script src="./src/ops-widgets.js" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" href="http://www.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
-    </style>
-    <link type="text/css" rel="stylesheet" href="./css/ops-styles.css">
-    </style>
+    <script src="../src/ops-widgets-html-loader.js" type="text/javascript"></script>
+    <!-- Use purl so we can pass api params in as URL parameters -->
+    <script src="../lib/purl.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      var appID = $.url().param('app_id');  
+      var appKey = $.url().param('app_key');  
+      var ldaBaseURL = $.url().param('app_url');
+    </script>
+    <link type="text/css" rel="stylesheet" href="http://www.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="../css/ops-styles.css"/>
 </head>
 
 <body>
