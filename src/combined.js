@@ -161,13 +161,13 @@ Handlebars.registerHelper('pdbLinkouts', function (pdb) {
         return new Handlebars.SafeString(url);
     }
 });
-Openphacts.CompoundWidget = function CompoundWidgets(baseURL, appID, appKey) {
+Openphacts.CompoundWidget = function(baseURL, appID, appKey) {
     this.baseURL = baseURL;
     this.appID = appID;
     this.appKey = appKey;
 }
 
-Openphacts.CompoundWidget.prototype.infoByURI = function (compoundURI, replacementNodeID) {
+Openphacts.CompoundWidget.prototype.infoByURI = function(compoundURI, replacementNodeID) {
     var compoundInfoArea = $('#' + replacementNodeID)[0];
     var compoundSearcher = new Openphacts.CompoundSearch(this.baseURL, this.appID, this.appKey);
     var compoundCallback = function (success, status, response) {
