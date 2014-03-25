@@ -11,10 +11,9 @@
     <script src="../src/widgets.js" type="text/javascript"></script>
     <script src="../src/helpers.js" type="text/javascript"></script>
     <script src="../src/compound-widgets.js" type="text/javascript"></script>
-    <link type="text/css" rel="stylesheet" href="http://www.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css">
-    </style>
-    <link type="text/css" rel="stylesheet" href="../css/ops-styles.css">
-    </style>
+    <script src="../src/target-widgets.js" type="text/javascript"></script>
+    <link type="text/css" rel="stylesheet" href="http://www.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css"></link>
+    <link type="text/css" rel="stylesheet" href="../css/ops-styles.css"></link>
 </head>
 
 <body>
@@ -161,6 +160,97 @@
             </div>
         </div>
     </div>
+    <div id="target-info-div" style="display: none;">
+        <div class="row">
+            <div class="container">
+                <div class="container-fluid large-top-spacing">
+                    <div class="row-fluid">
+  			            <!--Sidebar content-->
+    		            <div class="span3">
+      			            <div style="padding:0 0 0 20px;" >{{target_image_src seeAlso}}</div>	
+              			    <!--box properties-->
+      			            <div id="boxes" class="small-top-spacing">		
+					            {{#if molecularWeight}}
+      				            <div class="summary-box">
+      					            <div class="inner-property-content">
+  							            <p><small>Molecular Weight</small></p>
+  							            <p class="lead">{{molecularWeight}}</p>
+  						            </div>
+      				            </div>
+      				            {{/if}}
+					            {{#if numberOfResidues}}
+      				            <div class="summary-box">
+      					            <div class="inner-property-content">
+  							            <p><small># of Residues</small></p>
+  							            <p class="lead">{{numberOfResidues}}</p>
+  						            </div>
+      				            </div>
+					            {{/if}}
+					            {{#if theoreticalPi}}
+      				            <div class="summary-box">
+      					            <div class="inner-property-content">
+  							            <p><small>Theoretical Pi</small></p>
+  							            <p class="lead">{{theoreticalPi}}</p>
+  						            </div>
+      				            </div>
+					            {{/if}}
+      			            </div>
+    		            </div>	
+    		            <!--Body content-->
+    		            <div class="span9" style="padding:30px 0 0 0;">
+                            <!--title and formula-->
+                            <div>
+                                <div style="padding:20px 0 0 0">
+                                    {{#if prefLabel}}
+                                    <h1>{{prefLabel}}</h1>
+                                    {{/if}}
+                                </div>
+                            </div>
+                            {{#if alternativeName}}
+                            <div class="summary-descriptive-text large-top-spacing">
+                                <em>{{alternativeName}}</em>
+                            </div>
+                            {{/if}}
+				            <!--biotransformation-->
+					        <!--details-->
+                            <div class="dl-horizontal" style="font-size:13px;">
+                                <dl>
+                                    {{#if organism}}
+                                    <dt>Organism</dt>
+                                    <dd>{{linkableOrganism organism}}</dd> 
+                                    {{/if}}
+                                    {{#if existence}}
+                                    <dt>Existence</dt>
+                                    <dd>{{linkableOrganism existence}}</dd> 
+                                    {{/if}}
+                                    {{#if functionAnnotation}}
+                                    <dt>Specific Function</dt>
+                                    <dd>{{functionAnnotation}}</dd> 
+                                    {{/if}}
+                                    {{#if cellularLocation}} 
+                                    <dt>Cellular Location</dt>
+                                    <dd>{{cellularLocation}}</dd>                                                        
+                                    {{/if}}
+                                    {{#if keywords}}
+                                    <dt>Keywords</dt>
+                                    <dd>{{keywords}}</dd>                                                        
+                                    {{/if}}
+                                    {{#if seeAlso}}
+                                    <dt>PDB</dt>
+                                    <dd>{{#each seeAlso}} {{pdbLink this}} {{/each}}</dd> 
+                                    {{/if}}        
+                                    {{#if sequence}}
+                                    <dt>Sequence</dt>
+                                    <dd><div style="max-width:500px;word-wrap:break-word;">{{sequence}}</div></dd>
+                                    {{/if}}        
+                                </dl>
+                            </div>
+                        </div>
+  		            </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script type="text/javascript">
       // Get api params from the url then create the widget
       var appID = $.url().param('app_id');
@@ -168,6 +258,8 @@
       var appUrl = $.url().param('app_url');
       var compoundWidget = new Openphacts.CompoundWidget(appUrl, appID, appKey);
       compoundWidget.infoByURI("http://www.conceptwiki.org/concept/dd758846-1dac-4f0d-a329-06af9a7fa413", "compound-info-div");
+      var targetWidget = new Openphacts.TargetWidget(appUrl, appID, appKey);
+      targetWidget.infoByURI("http://www.conceptwiki.org/concept/5de0f011-68e0-4917-bac2-6d65e8f7effb", "target-info-div");
     </script>
 </body>
 

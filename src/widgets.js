@@ -1,2 +1,5 @@
+/**
+ * @namespace
+ */
 var Openphacts = Openphacts || {};
 

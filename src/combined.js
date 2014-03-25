@@ -1,3 +1,6 @@
+/**
+ * @namespace
+ */
 var Openphacts = Openphacts || {};
 
 Handlebars.registerHelper('targetComponentLink', function (component) {
@@ -161,12 +164,20 @@ Handlebars.registerHelper('pdbLinkouts', function (pdb) {
         return new Handlebars.SafeString(url);
     }
 });
+/**
+ * @constructor
+ * @memberOf Openphacts
+ */
 Openphacts.CompoundWidget = function(baseURL, appID, appKey) {
     this.baseURL = baseURL;
     this.appID = appID;
     this.appKey = appKey;
 }
-
+/**
+ * Display compound information for compoundURI by replacing the element at replacementNodeID
+ * and populating the template contained within it
+ * @method
+ */
 Openphacts.CompoundWidget.prototype.infoByURI = function(compoundURI, replacementNodeID) {
     var compoundInfoArea = $('#' + replacementNodeID)[0];
     var compoundSearcher = new Openphacts.CompoundSearch(this.baseURL, this.appID, this.appKey);
