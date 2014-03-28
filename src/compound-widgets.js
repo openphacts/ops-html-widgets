@@ -1,8 +1,8 @@
 /**
- * @constructor
- * @memberOf Openphacts
+ * @method
+ * @memberOf OpenphactsWidgets
  */
-Openphacts.CompoundWidget = function(baseURL, appID, appKey) {
+OpenphactsWidgets.prototype.setAPIParameters = function(baseURL, appID, appKey) {
     this.baseURL = baseURL;
     this.appID = appID;
     this.appKey = appKey;
@@ -12,7 +12,7 @@ Openphacts.CompoundWidget = function(baseURL, appID, appKey) {
  * and populating the template contained within it
  * @method
  */
-Openphacts.CompoundWidget.prototype.infoByURI = function(compoundURI, replacementNodeID) {
+OpenphactsWidgets.prototype.compoundInfoByURI = function(compoundURI, replacementNodeID) {
     var compoundInfoArea = $('#' + replacementNodeID)[0];
     var compoundSearcher = new Openphacts.CompoundSearch(this.baseURL, this.appID, this.appKey);
     var compoundCallback = function (success, status, response) {

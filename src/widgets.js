@@ -1,5 +1,5 @@
 /**
  * @namespace
  */
-var Openphacts = Openphacts || {};
-
+var OpenphactsWidgets = OpenphactsWidgets || {};
+OpenphactsWidgets = function(){};

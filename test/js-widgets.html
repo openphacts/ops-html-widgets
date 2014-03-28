@@ -11,7 +11,7 @@
     <script src="../src/widgets.js" type="text/javascript"></script>
     <script src="../src/helpers.js" type="text/javascript"></script>
     <script src="../src/compound-widgets.js" type="text/javascript"></script>
-    <script src="../src/target-widgets.js" type="text/javascript"></script>
+    <!-- <script src="../src/target-widgets.js" type="text/javascript"></script> -->
     <link type="text/css" rel="stylesheet" href="http://www.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap.min.css"></link>
     <link type="text/css" rel="stylesheet" href="../css/ops-styles.css"></link>
 </head>
@@ -256,10 +256,12 @@
       var appID = $.url().param('app_id');
       var appKey = $.url().param('app_key');
       var appUrl = $.url().param('app_url');
-      var compoundWidget = new Openphacts.CompoundWidget(appUrl, appID, appKey);
-      compoundWidget.infoByURI("http://www.conceptwiki.org/concept/dd758846-1dac-4f0d-a329-06af9a7fa413", "compound-info-div");
-      var targetWidget = new Openphacts.TargetWidget(appUrl, appID, appKey);
-      targetWidget.infoByURI("http://www.conceptwiki.org/concept/5de0f011-68e0-4917-bac2-6d65e8f7effb", "target-info-div");
+      var widgets = new OpenphactsWidgets();
+      widgets.setAPIParameters(appUrl, appID, appKey);
+
+      widgets.compoundInfoByURI("http://www.conceptwiki.org/concept/dd758846-1dac-4f0d-a329-06af9a7fa413", "compound-info-div");
+      //var targetWidget = new Openphacts.TargetWidget(appUrl, appID, appKey);
+      //targetWidget.infoByURI("http://www.conceptwiki.org/concept/5de0f011-68e0-4917-bac2-6d65e8f7effb", "target-info-div");
     </script>
 </body>
 
